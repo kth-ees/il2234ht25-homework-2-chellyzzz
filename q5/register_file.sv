@@ -10,4 +10,20 @@ module registerfile (input logic clk,
                      );
     // complete here
 
+reg [7:0] registers [15:0];
+always_ff @(posedge clk or negedge rst_n) begin
+    if(rst_n == 1'b0) begin
+        for(int i = 0; i < 16; i++) begin
+            registers[i] <= 8'b0;
+        end
+    end
+    else begin
+        if(write_en) begin
+            registers[write_addr] <= data_in;
+        end
+    end
+end
+assign data_out1 = registers[read_addr1];
+assign data_out2 = registers[read_addr2];
+
 endmodule
