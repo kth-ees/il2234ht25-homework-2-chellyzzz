@@ -22,11 +22,9 @@ module registerfile_tb;
     .data_out2(data_out2)
   );
 
-  // Clock generation
   initial clk = 0;
-  always #5 clk = ~clk; // 10 time units clock period
+  always #5 clk = ~clk; 
 
-  // Test sequence
   initial begin
     // Initialize signals
     rst_n = 0;
