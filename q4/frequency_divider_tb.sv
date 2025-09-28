@@ -14,6 +14,8 @@ frequency_divider dut (
 );
 
 initial begin
+    // $dumpfile("waveform2.vcd"); 
+    // $dumpvars(0, frequency_divider_tb); 
     clk = 1'b0;
     forever #5 clk = ~clk; // 10 time unit clock period
 end

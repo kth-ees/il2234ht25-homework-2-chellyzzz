@@ -9,7 +9,7 @@ module up_down_counter #(parameter N = 4)
   
   // complete here
 reg [N-1:0] count;
-assign carry_out = count;
+assign count_out = count;
 
 always @(posedge clk or negedge rst_n) begin
   if(~rst_n) begin

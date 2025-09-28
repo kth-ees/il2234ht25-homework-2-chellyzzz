@@ -13,7 +13,6 @@ module LFSR_6bit_tb;
   );
 
   initial clk = 0;
-  always #5 clk = ~clk; 
 
   initial begin
     rst_n = 0; 

@@ -13,11 +13,10 @@ module frequency_divider (input logic clk,
   );
 
   reg [15:0] divider;
-  assign divider_out = divider;
-
+  
   always_ff @(posedge clk or negedge rst_n) begin
       if(rst_n == 1'b0) begin
-          cnt_sel <= 1'b0;
+          divider <= 'd0;
       end
       else begin
           if(sel == 1'b0) begin
@@ -37,6 +36,9 @@ always_ff @(posedge clk or negedge rst_n) begin
         if(count_out == divider) begin
             divider_out <= ~divider_out;
         end
+        else begin
+            divider_out <= divider_out;
+        end
     end
 end
 
@@ -45,39 +47,40 @@ endmodule
 module counter_16bit (
     input logic clk,
     input logic rst_n,
-    output logic [15:0] count_out,
+    output logic [15:0] count_out
 );
-    
+    wire [15:0] count;
+    assign count_out = count;
     counter_4bit counter0 (
         .clk(clk),
         .rst_n(rst_n),
-        .count_out(count_out[3:0])
+        .count_out(count[3:0])
     );
     counter_4bit counter1 (
-        .clk(count_out[3]),
+        .clk(count[3]),
         .rst_n(rst_n),
-        .count_out(count_out[7:4])
+        .count_out(count[7:4])
     );
     counter_4bit counter2 (
-        .clk(count_out[7]),
+        .clk(count[7]),
         .rst_n(rst_n),
-        .count_out(count_out[11:8])
+        .count_out(count[11:8])
     );
     counter_4bit counter3 (
-        .clk(count_out[11]),
+        .clk(count[11]),
         .rst_n(rst_n),
-        .count_out(count_out[15:12])
+        .count_out(count[15:12])
     );
 endmodule
 
 module counter_4bit (
     input logic clk,
     input logic rst_n,
-    output logic [3:0] count_out,
+    output logic [3:0] count_out
 );
 
     reg [3:0] count;
-    assign counter_out = count_out;
+    assign count_out = count;
     always_ff @(posedge clk or negedge rst_n) begin
         if(rst_n == 1'b0) begin
             count <= 'b0;

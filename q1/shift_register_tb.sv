@@ -13,6 +13,11 @@ logic [N-1:0] parallel_in;
 logic [N-1:0] parallel_out;
 logic serial_out;
 
+initial begin
+    clk = 0;
+    forever #5 clk = ~clk; 
+end
+
 shift_register #(N) uut (
     .clk(clk),
     .rst_n(rst_n),
